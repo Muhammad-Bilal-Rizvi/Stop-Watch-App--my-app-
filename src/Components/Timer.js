@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 const Timer = () => {
   const [seconds, setSeconds] = useState(0);
   const [minutes, setMinutes] = useState(0);
-
+const [restartBtn, setRestartBtn] = useState();
   var timer;
 
   useEffect(() => {
