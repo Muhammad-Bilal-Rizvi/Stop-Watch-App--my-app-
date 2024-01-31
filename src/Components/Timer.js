@@ -3,7 +3,9 @@ import React, { useEffect, useState } from "react";
 const Timer = () => {
   const [seconds, setSeconds] = useState(0);
   const [minutes, setMinutes] = useState(0);
-const [restartBtn, setRestartBtn] = useState();
+  const [isStarted, setIsStarted] = useState(true);
+  const [isStopped, setIsStopped] = useState(false);
+
   var timer;
 
   useEffect(() => {
@@ -13,7 +15,7 @@ const [restartBtn, setRestartBtn] = useState();
         setMinutes(minutes + 1);
         setSeconds(0);
       }
-    },1000);
+    }, 1000);
 
     return () => clearInterval(timer);
   });
@@ -24,8 +26,11 @@ const [restartBtn, setRestartBtn] = useState();
   };
 
   const stop = () => {
+    setIsStopped(true);
     clearInterval(timer);
   };
+
+  const resume = () => {};
 
   return (
     <div className="timer">
@@ -36,8 +41,23 @@ const [restartBtn, setRestartBtn] = useState();
             {minutes < 10 ? "0" + minutes : minutes}:
             {seconds < 10 ? "0" + seconds : seconds}
           </h1>
-          <button className="restart" onClick={restart}>Restart</button>
-          <button className="stop" onClick={stop}>Stop</button>
+          <button className="restart" onClick={restart}>
+            Restart
+          </button>
+          {/* <button className="stop" onClick={stop}>Stop</button> */}
+          
+          {/* Ternary operator (if else) added to switch button from stop to resume */}
+          {isStarted && !isStopped && (
+            <button className="stop" onClick={stop}>
+              Stop
+            </button>
+          )}
+
+          {isStopped && (
+            <button className="stop" onClick={resume}>
+              Resume
+            </button>
+          )}
         </div>
       </div>
     </div>
@@ -45,3 +65,5 @@ const [restartBtn, setRestartBtn] = useState();
 };
 
 export default Timer;
+
+// {state ? <button>fdsgsg</button>: <></>}
